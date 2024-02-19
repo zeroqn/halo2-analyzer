@@ -27,7 +27,7 @@ pub fn extract_columns<F: Field>(expr: &Expression<F>) -> HashSet<(Column<Any>, 
                 };
                 dst.insert((column.into(), advice_query.rotation));
             }
-            #[cfg(any(feature = "use_pse_halo2_proofs", feature = "use_axiom_halo2_proofs",))]
+            #[cfg(any(feature = "use_pse_halo2_proofs", feature = "use_axiom_halo2_proofs", feature = "use_summa_halo2_proofs"))]
             Expression::Advice(advice_query) => {
                 let column = Column {
                     index: advice_query.column_index,
@@ -126,7 +126,7 @@ pub fn eval_abstract<F: AnalyzableField>(
                 eval_abstract(expr, selectors,region_begin,region_end,row_num,fixed)
             }
         }
-        #[cfg(any(feature = "use_pse_halo2_proofs", feature = "use_axiom_halo2_proofs",feature = "use_scroll_halo2_proofs"))]
+        #[cfg(any(feature = "use_pse_halo2_proofs", feature = "use_axiom_halo2_proofs",feature = "use_scroll_halo2_proofs", feature = "use_summa_halo2_proofs"))]
         Expression::Challenge(_) => todo!(),
     }
 }

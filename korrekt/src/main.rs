@@ -8,6 +8,8 @@ use korrekt::sample_circuits::pse_v1 as sample_circuits;
 use korrekt::sample_circuits::scroll as sample_circuits;
 #[cfg(feature = "use_zcash_halo2_proofs")]
 use korrekt::sample_circuits::zcash as sample_circuits;
+#[cfg(feature = "use_summa_halo2_proofs")]
+use korrekt::sample_circuits::summa as sample_circuits;
 use std::marker::PhantomData;
 
 use crate::circuit_analyzer::halo2_proofs_libs::*;

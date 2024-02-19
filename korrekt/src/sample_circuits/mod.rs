@@ -8,3 +8,5 @@ pub mod axiom;
 pub mod scroll;
 #[cfg(feature = "use_pse_v1_halo2_proofs")]
 pub mod pse_v1;
+#[cfg(feature = "use_summa_halo2_proofs")]
+pub mod summa;

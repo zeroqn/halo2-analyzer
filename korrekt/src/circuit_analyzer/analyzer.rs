@@ -185,7 +185,9 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                     feature = "use_pse_halo2_proofs",
                     feature = "use_axiom_halo2_proofs",
                     feature = "use_scroll_halo2_proofs",
-                    feature = "use_pse_v1_halo2_proofs"))]
+                    feature = "use_pse_v1_halo2_proofs",
+                    feature = "use_summa_halo2_proofs"
+                ))]
                 let (reg_column, rotation) = (cell.0 .0, cell.1);
                 #[cfg(feature = "use_zcash_halo2_proofs")]
                 let (reg_column, rotation) = (cell.0, cell.1);
@@ -270,7 +272,8 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                         #[cfg(any(
                             feature = "use_pse_halo2_proofs",
                             feature = "use_axiom_halo2_proofs",
-                            feature = "use_scroll_halo2_proofs"
+                            feature = "use_scroll_halo2_proofs",
+                            feature = "use_summa_halo2_proofs"
                         ))]
                         let left_column_abr = match left_cell.column_type() {
                             Any::Advice(_) => 'A',
@@ -306,7 +309,8 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                         #[cfg(any(
                             feature = "use_pse_halo2_proofs",
                             feature = "use_axiom_halo2_proofs",
-                            feature = "use_scroll_halo2_proofs"
+                            feature = "use_scroll_halo2_proofs",
+                            feature = "use_summa_halo2_proofs"
                         ))]
                         let right_column_abr = match right_cell.column_type() {
                             Any::Advice(_) => 'A',
@@ -628,7 +632,8 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
             #[cfg(any(
                 feature = "use_pse_halo2_proofs",
                 feature = "use_axiom_halo2_proofs",
-                feature = "use_scroll_halo2_proofs"
+                feature = "use_scroll_halo2_proofs",
+                feature = "use_summa_halo2_proofs"
             ))]
             Expression::Challenge(_poly) => ("".to_string(), NodeType::Fixed),
         }
@@ -682,6 +687,7 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
         feature = "use_pse_halo2_proofs",
         feature = "use_axiom_halo2_proofs",
         feature = "use_pse_v1_halo2_proofs",
+        feature = "use_summa_halo2_proofs"
     ))]
     fn decompose_lookups(&self, printer: &mut smt::Printer<File>) -> Result<(), anyhow::Error> {
         for region in &self.regions {
