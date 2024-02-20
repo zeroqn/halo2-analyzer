@@ -1,6 +1,7 @@
 use super::{analyzable::AnalyzableField, halo2_proofs_libs::*};
 use anyhow::{Context, Result};
 use log::info;
+use alloy_primitives::U256;
 
 use std::{
     collections::{HashMap, HashSet},
@@ -470,7 +471,7 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
         match &poly {
             Expression::Constant(a) => {
                 let constant_decimal_value =
-                    u64::from_str_radix(format!("{:?}", a).strip_prefix("0x").unwrap(), 16)
+                    U256::from_str_radix(format!("{:?}", a).strip_prefix("0x").unwrap(), 16)
                         .unwrap();
 
                 let term = format!("(as ff{:?} F)", constant_decimal_value);
@@ -487,9 +488,9 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                 let col = fixed_query.column_index;
                 let row = (fixed_query.rotation.0 + row_num) as usize + region_begin;
 
-                let mut t = 0;
+                let mut t = U256::ZERO;
                 if let CellValue::Assigned(fixed_val) = fixed[col][row] {
-                    t = u64::from_str_radix(
+                    t = U256::from_str_radix(
                         format!("{:?}", fixed_val).strip_prefix("0x").unwrap(),
                         16,
                     )
@@ -744,7 +745,7 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                                 if let CellValue::Assigned(value) =
                                     self.fixed[col_indices[col]][row]
                                 {
-                                    t = u64::from_str_radix(
+                                    t = U256::from_str_radix(
                                         format!("{:?}", value).strip_prefix("0x").unwrap(),
                                         16,
                                     )
@@ -847,7 +848,7 @@ impl<'b, F: AnalyzableField> Analyzer<F> {
                                 if let CellValue::Assigned(value) =
                                     self.fixed[col_indices[col]][row]
                                 {
-                                    t = u64::from_str_radix(
+                                    t = U256::from_str_radix(
                                         format!("{:?}", value).strip_prefix("0x").unwrap(),
                                         16,
                                     )
