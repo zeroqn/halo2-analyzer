@@ -84,11 +84,11 @@ pub fn eval_abstract<F: AnalyzableField>(
             let col = fixed_query.column_index;
             let row = (fixed_query.rotation.0 + row_num) as usize + region_begin;
 
-            let mut t = 0;
+            let mut t: alloy_primitives::U256 = alloy_primitives::U256::ZERO;
             if let CellValue::Assigned(fixed_val) = fixed[col][row] {
-                t  = u64::from_str_radix(format!("{:?}",fixed_val).strip_prefix("0x").unwrap(), 16).unwrap();
+                t  = alloy_primitives::U256::from_str_radix(format!("{:?}",fixed_val).strip_prefix("0x").unwrap(), 16).unwrap();
             }
-            if t == 0 {
+            if t.is_zero() {
                 AbsResult::Zero
             } else {
                 AbsResult::Variable
